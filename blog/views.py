@@ -1,18 +1,34 @@
-from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.shortcuts import render
+
 
 def blog(request):
-    response = render_to_string('blog/index.html')
-    return HttpResponse(response)
+    return render(request, 'blog/index.html')
 
 
 def posts(request):
-    return HttpResponse("<h2>Все посты блога</h2>")
+    return render(request, 'blog/list_detail.html')
 
 
-def num_post(request, number_post):
-    return HttpResponse(f"Здесь содержится информация о посте под номером {number_post}")
+
+def get_by_name(request, name_post):
+    context = {
+        'name_post': name_post,
+    }
+    return render(request, 'blog/detail_by_name.html', context=context)
 
 
-def info_post(request, name_post):
-    return HttpResponse(f"Информация о посте {name_post}")
+def get_guinness_world_records(request):
+    context = {
+        'power_man': 'Narve Laeret',
+        'bar_name': 'Bob’s BBQ & Grill',
+        'count_needle': 1790,
+    }
+    return render(request, 'blog/guinnessworldrecords.html', context=context)
+
+
+def get_by_num(request, num):
+    context = {
+        'num': num,
+    }
+    return render(request, 'blog/detail_by_number.html', context=context)
